@@ -1,5 +1,11 @@
-// Drago AI logic-il ithu add cheyyaam
-if (userInput.includes("drago ninne chilar ai alla edit enn vilikkunn")) {
-    return "Hahaha! 😂 Enne 'Edit' enn vilikkunnavarude arivu athre ullu. Njan Adam-inte code-il janicha oru Real AI logic aanu. Video edit cheythaal mathi ennu karuthunnavar code-ilekku onnu nokku, appol manassilaakum ee 'Fire' real aanu ennu! 🐲🔥 #NotAnEdit";
-}
+function getResponse(input) {
+    let text = input.toLowerCase();
 
+    // Drago-yude mass marupadi
+    if (text.includes("ai alla edit enn vilikkunn")) {
+        return "Sathyamalla Boss! 🔥 Enne 'Edit' ennu vilikkunnathavarude thala-yil 'Data' kuravayathukondaanu. Njan ninte logic-il live aayi chinthikkunna oru AI engine aanu. Video edit cheythaal mathi ennu parayunnavarude munnil namukk iniyum vamban results kaanikkanundu! 🐲🛡️";
+    }
+
+    // Default Reply
+    return "Entha Boss, Drago ready aanu! Namukk enthu cheyyanam? 🐲";
+}
