@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drago AI - Final Boss</title>
+    <title>Drago AI - Stable v3.0</title>
     <style>
+        * { box-sizing: border-box; }
         body {
-            background-color: #050505;
-            color: #00ff00;
-            font-family: 'Courier New', Courier, monospace;
+            background-color: #121212; /* Clean Dark Grey */
+            color: #e0e0e0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -17,69 +18,88 @@
             margin: 0;
         }
         #chat-container {
-            width: 90%;
-            max-width: 500px;
-            background: #111;
-            border: 2px solid #00ff00;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
-            animation: disco-border 3s infinite alternate;
+            width: 95%;
+            max-width: 450px;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        @keyframes disco-border {
-            0% { border-color: #00ff00; box-shadow: 0 0 10px #00ff00; }
-            50% { border-color: #ff00ea; box-shadow: 0 0 20px #ff00ea; }
-            100% { border-color: #00eaff; box-shadow: 0 0 10px #00eaff; }
+        header {
+            background: #252525;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            font-weight: bold;
+            color: #00ff88; /* Neon Green */
+            letter-spacing: 1px;
         }
         #chat-box {
-            height: 380px;
+            height: 400px;
             overflow-y: auto;
-            margin-bottom: 15px;
-            padding: 10px;
-            border-bottom: 1px solid #222;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .msg { padding: 10px 14px; border-radius: 8px; max-width: 85%; font-size: 14px; line-height: 1.4; }
+        .user-msg {
+            align-self: flex-end;
+            background: #00ff88;
+            color: #000;
+            font-weight: 500;
+        }
+        .drago-msg {
+            align-self: flex-start;
+            background: #2c2c2c;
+            color: #00ff88;
+            border: 1px solid #333;
         }
         .input-area {
+            padding: 15px;
+            background: #252525;
             display: flex;
             gap: 10px;
         }
         input {
             flex: 1;
-            background: #000;
-            border: 1px solid #00ff00;
-            color: #00ff00;
+            background: #121212;
+            border: 1px solid #444;
+            color: #fff;
             padding: 12px;
-            border-radius: 5px;
+            border-radius: 6px;
             outline: none;
         }
         button {
-            padding: 10px 20px;
-            background: #00ff00;
+            padding: 0 20px;
+            background: #00ff88;
             color: #000;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
+            transition: 0.3s;
         }
-        .user-msg { color: #fff; margin-bottom: 10px; text-align: right; }
-        .drago-msg { color: #00ff00; margin-bottom: 15px; font-weight: bold; }
+        button:hover { background: #00cc6e; }
     </style>
 </head>
 <body>
 
-    <h2 style="text-shadow: 0 0 10px #00ff00;">🐲 DRAGO AI - LIVE LOGIC</h2>
-
     <div id="chat-container">
+        <header>DRAGO AI SYSTEM</header>
         <div id="chat-box">
-            <p class="drago-msg">Drago: Commander, System online! Puthiya mass keywords load cheythittundu. Innu nammuk fire aakkam! 🫡🔥</p>
+            <div class="msg drago-msg">Commander, System stable aanu. Logic updates loaded. 🫡</div>
         </div>
         <div class="input-area">
-            <input type="text" id="user-input" placeholder="Type command here, Boss...">
-            <button onclick="sendChat()">EXECUTE</button>
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button onclick="sendChat()">SEND</button>
         </div>
     </div>
 
     <script>
-        // 🧠 Ninte "Brain Data" - Keywords ivide add cheyyam
         const brainData = [
             {
                 keywords: ["ai logic means story ai alla", "edit enn vilikkunn", "ai alla", "fake ai"],
@@ -91,7 +111,7 @@
             },
             {
                 keywords: ["enthund", "sugamano", "how are you"],
-                reply: "Nalla disco mood-ilaanu Commander! Nee enthu parayunnu? 🕺🔥"
+                reply: "Nalla neet mood-ilaanu Commander! Nee enthu parayunnu? 🔥"
             }
         ];
 
@@ -102,14 +122,14 @@
 
             if (userInput.trim() === "") return;
 
-            // Display User Message
-            chatBox.innerHTML += `<div class="user-msg"><b>Nee:</b> ${userInput}</div>`;
-
-            // Process Logic
+            chatBox.innerHTML += `<div class="msg user-msg">${userInput}</div>`;
+            
             let response = getResponse(userInput);
             
-            // Display Drago Reply
-            chatBox.innerHTML += `<div class="drago-msg">Drago: ${response}</div>`;
+            setTimeout(() => {
+                chatBox.innerHTML += `<div class="msg drago-msg">Drago: ${response}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 500);
 
             inputField.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -117,20 +137,15 @@
 
         function getResponse(input) {
             let text = input.toLowerCase();
-            
-            // Keyword Matching Logic
             for (let item of brainData) {
                 for (let key of item.keywords) {
-                    if (text.includes(key)) {
-                        return item.reply;
-                    }
+                    if (text.includes(key)) return item.reply;
                 }
             }
-
-            // Default Reply
-            return "Nalla chodyam! Pakshe ithu ente brain-il ippo illa. Puthiya keywords namukk add cheyyanam Boss! 🐲✨";
+            return "Nalla chodyam! Pakshe ithu ente brain-il ippo illa. Puthiya keywords namukk add cheyyanam Boss! 🐲";
         }
     </script>
 </body>
 </html>
 
+            
